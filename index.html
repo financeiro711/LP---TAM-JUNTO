@@ -43,10 +43,12 @@
     align-items: center;
   }
   .nav-logo img {
-    height: 64px;
+    height: 120px;
     width: auto;
     mix-blend-mode: screen;
     filter: brightness(1.1) contrast(1.05);
+    position: relative;
+    z-index: 101;
   }
   .nav-logo span { color: var(--laranja); }
   .nav-links { display: flex; gap: 36px; list-style: none; }
@@ -57,6 +59,7 @@
     font-size: .95rem;
     font-weight: 500;
     letter-spacing: .3px;
+    text-transform: uppercase;
     transition: color .2s;
   }
   .nav-links a:hover { color: var(--laranja); }
@@ -71,7 +74,7 @@
 
   /* ---- HERO ---- */
   .hero {
-    min-height: 100vh;
+    min-height: 28vh;
     position: relative;
     display: flex;
     align-items: center;
@@ -104,6 +107,11 @@
     from { opacity: 0; transform: translateY(40px); }
     to   { opacity: 1; transform: translateY(0); }
   }
+  @keyframes logoEntrada {
+    0%   { opacity: 0; transform: scale(0.6); filter: invert(1) sepia(1) saturate(4) hue-rotate(345deg) drop-shadow(0 0 0px rgba(240,125,0,0)); }
+    60%  { transform: scale(1.05); }
+    100% { opacity: 1; transform: scale(1); filter: invert(1) sepia(1) saturate(4) hue-rotate(345deg) drop-shadow(0 0 30px rgba(240,125,0,0.35)); }
+  }
   .hero-eyebrow {
     font-family: 'Barlow Condensed', sans-serif;
     font-size: .85rem;
@@ -127,26 +135,26 @@
   }
   .hero-logo-img {
     animation: fadeUp .9s .1s ease both;
-    margin: 16px 0 8px;
+    margin: 8px 0 4px;
   }
   .hero-logo-img img {
-    width: clamp(260px, 42vw, 560px);
+    width: clamp(180px, 28vw, 380px);
     height: auto;
-    /* Inverte preto/branco para funcionar no fundo escuro */
     filter: invert(1) sepia(1) saturate(4) hue-rotate(345deg)
             drop-shadow(0 0 30px rgba(240,125,0,0.35));
+    animation: logoEntrada 1s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
   .hero-sub {
     font-family: 'Barlow', sans-serif;
     font-size: clamp(1rem, 2vw, 1.35rem);
     font-weight: 400;
     color: rgba(255,255,255,0.6);
-    margin-top: 14px;
+    margin-top: 6px;
     letter-spacing: .5px;
     animation: fadeUp .9s .2s ease both;
   }
   .hero-btns {
-    margin-top: 40px;
+    margin-top: 20px;
     display: flex;
     gap: 14px;
     justify-content: center;
@@ -210,7 +218,7 @@
   .sobre {
     background: var(--cinza-claro);
     color: var(--verde-escuro);
-    padding: 120px 60px;
+    padding: 50px 60px 80px;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 80px;
@@ -238,6 +246,19 @@
     color: #3a3a3a;
     margin-bottom: 16px;
   }
+  .sobre-lead {
+    font-size: 1.12rem;
+    color: #2a2a2a;
+  }
+  .sobre-lead strong { color: var(--verde); font-weight: 700; }
+  .sobre-cta-text {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--laranja) !important;
+    border-left: 3px solid var(--laranja);
+    padding-left: 14px;
+    margin-top: 24px;
+  }
   .sobre-stats {
     display: grid;
     grid-template-columns: repeat(3,1fr);
@@ -252,6 +273,7 @@
     line-height: 1;
   }
   .stat-num span { color: var(--laranja); }
+  .stat-num .counter { color: var(--verde); }
   .stat-label {
     font-size: .85rem;
     color: #666;
@@ -280,7 +302,7 @@
   }
   .sobre-card-icon { font-size: 2rem; margin-bottom: 12px; }
   .sobre-card h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 1px; margin-bottom: 8px; }
-  .sobre-card p { font-size: .9rem; opacity: .8; line-height: 1.6; }
+  .sobre-card p { font-size: .9rem; opacity: .8; line-height: 1.6; color: var(--branco); }
 
   /* ---- DESTINOS ---- */
   .destinos { background: var(--verde-escuro); padding: 120px 60px; }
@@ -596,15 +618,9 @@
     </div>
     <p class="hero-sub">Experiências únicas na natureza para grupos e empresas</p>
     <div class="hero-btns">
-      <a href="#destinos" class="btn-primary">Ver Destinos</a>
-      <a href="#sobre" class="btn-ghost">Saiba Mais</a>
+      <a href="#destinos" class="btn-primary">VER DESTINOS</a>
+      <a href="#sobre" class="btn-ghost">SAIBA MAIS</a>
     </div>
-  </div>
-  <div class="hero-scroll">
-    <span>Role para baixo</span>
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <path d="M12 5v14M5 12l7 7 7-7"/>
-    </svg>
   </div>
 </section>
 
@@ -615,19 +631,20 @@
   <div class="sobre-texto">
     <div class="sobre-tag">Quem somos</div>
     <h2>Aventuras que unem pessoas</h2>
-    <p>A Tamo Junto Aventuras nasceu da paixão por explorar a natureza e criar laços genuínos entre pessoas. Somos especialistas em experiências outdoor para grupos, equipes corporativas e famílias.</p>
-    <p>Com mais de uma década de experiência, levamos nossos clientes a trilhas, cachoeiras, escaladas e vivências que ficam para sempre na memória.</p>
+    <p class="sobre-lead">Somos uma empresa de turismo com aventura! Com mais de <strong>1.000 clientes atendidos</strong> e <strong>300 viagens realizadas</strong>, somos referência regional em proporcionar experiências que combinam aventura, natureza, cultura e conexão genuína.</p>
+    <p>Nosso propósito é criar momentos inesquecíveis, oferecendo experiências únicas que unem emoção, descoberta e total segurança.</p>
+    <p class="sobre-cta-text">✦ Conte conosco para transformar suas viagens em histórias incríveis!</p>
     <div class="sobre-stats">
       <div class="stat">
-        <div class="stat-num">10<span>+</span></div>
+        <div class="stat-num"><span class="counter" data-target="4" data-suffix="+">0</span><span>+</span></div>
         <div class="stat-label">Anos de experiência</div>
       </div>
       <div class="stat">
-        <div class="stat-num">5<span>k</span></div>
+        <div class="stat-num"><span class="counter" data-target="1000" data-suffix="+">0</span><span>+</span></div>
         <div class="stat-label">Aventureiros</div>
       </div>
       <div class="stat">
-        <div class="stat-num">30<span>+</span></div>
+        <div class="stat-num"><span class="counter" data-target="50" data-suffix="+">0</span><span>+</span></div>
         <div class="stat-label">Destinos</div>
       </div>
     </div>
@@ -857,6 +874,31 @@
     document.getElementById('form-contato').style.display = 'none';
     document.getElementById('form-success').style.display = 'block';
   }
+
+  // Counter animation
+  const counters = document.querySelectorAll('.counter');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const el = entry.target;
+      if (!entry.isIntersecting) {
+        el.textContent = '0';
+        if (el._timer) clearInterval(el._timer);
+        return;
+      }
+      const target = +el.dataset.target;
+      const duration = 600;
+      const steps = 40;
+      const increment = target / steps;
+      let current = 0;
+      if (el._timer) clearInterval(el._timer);
+      el._timer = setInterval(() => {
+        current = Math.min(current + increment, target);
+        el.textContent = Math.round(current).toLocaleString('pt-BR');
+        if (current >= target) clearInterval(el._timer);
+      }, duration / steps);
+    });
+  }, { threshold: 0.5 });
+  counters.forEach(c => observer.observe(c));
 
   // Nav scroll effect
   window.addEventListener('scroll', () => {
