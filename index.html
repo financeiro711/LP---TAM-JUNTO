@@ -3,7 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tamo Junto Aventuras</title>
+<title>Tamo Junto Aventuras | Turismo de Aventura em Natal/RN</title>
+<meta name="description" content="Turismo de aventura em Natal/RN. Rapel, trilhas, passeios de quadriciclo, caiaque, expedições e bate-volta. Viva experiências radicais e inesquecíveis no Rio Grande do Norte com a Tamo Junto Aventuras.">
+<meta name="keywords" content="turismo aventura Natal RN, rapel Natal, trilha Natal, quadriciclo Natal, caiaque Natal, expedições RN, bate-volta Natal, turismo radical Rio Grande do Norte, passeios aventura Natal">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -16,7 +18,7 @@
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; scroll-padding-top: 72px; }
   body {
     font-family: 'Barlow', sans-serif;
     background: var(--verde-escuro);
@@ -77,8 +79,10 @@
     min-height: 28vh;
     position: relative;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
+    padding-top: 100px;
+    padding-bottom: 40px;
     overflow: hidden;
     background: var(--verde-escuro);
   }
@@ -218,7 +222,7 @@
   .sobre {
     background: var(--cinza-claro);
     color: var(--verde-escuro);
-    padding: 50px 60px 80px;
+    padding: 40px 60px 50px;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 80px;
@@ -259,9 +263,24 @@
     padding-left: 14px;
     margin-top: 24px;
   }
+  .sobre-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 24px;
+  }
+  .sobre-badge {
+    background: var(--verde);
+    color: var(--branco);
+    font-size: .8rem;
+    font-weight: 600;
+    padding: 7px 14px;
+    border-radius: 20px;
+    letter-spacing: .5px;
+  }
   .sobre-stats {
     display: grid;
-    grid-template-columns: repeat(3,1fr);
+    grid-template-columns: repeat(4,1fr);
     gap: 24px;
     margin-top: 40px;
   }
@@ -282,7 +301,7 @@
     letter-spacing: 1px;
     margin-top: 4px;
   }
-  .sobre-visual { display: grid; grid-template-rows: auto auto; gap: 20px; }
+  .sobre-visual { display: grid; grid-template-rows: auto auto; gap: 20px; align-self: flex-start; margin-top: 10px; }
   .sobre-card {
     background: var(--verde);
     border-radius: 12px;
@@ -305,7 +324,7 @@
   .sobre-card p { font-size: .9rem; opacity: .8; line-height: 1.6; color: var(--branco); }
 
   /* ---- DESTINOS ---- */
-  .destinos { background: var(--verde-escuro); padding: 120px 60px; }
+  .destinos { background: var(--verde-escuro); padding: 50px 60px 80px; }
   .section-header {
     display: flex;
     align-items: flex-end;
@@ -421,26 +440,25 @@
   .dif-item p { font-size: .9rem; color: rgba(8,29,20,0.75); line-height: 1.6; }
 
   /* ---- DEPOIMENTOS ---- */
-  .depoimentos { background: var(--verde); padding: 120px 60px; }
-  .dep-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 28px; margin-top: 60px; }
+  .depoimentos { background: var(--verde); padding: 50px 60px 60px; }
+  .dep-carousel { position: relative; margin-top: 60px; }
+  .dep-overflow { overflow: hidden; }
+  .dep-grid { display: flex; gap: 28px; transition: transform .4s ease; }
+  .dep-card { flex-shrink: 0; }
   .dep-card {
     background: rgba(255,255,255,0.06);
     border: 1px solid rgba(255,255,255,0.1);
     border-radius: 12px;
-    padding: 36px;
+    padding: 28px;
     position: relative;
+    display: flex;
+    flex-direction: column;
   }
-  .dep-card::before {
-    content: '"';
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 8rem;
-    color: var(--laranja);
-    opacity: .25;
-    position: absolute;
-    top: -10px; left: 24px;
-    line-height: 1;
-  }
-  .dep-text { font-size: 1rem; line-height: 1.7; opacity: .85; margin-bottom: 24px; position: relative; }
+  .dep-google-badge { order: 1; }
+  .dep-autor { order: 2; margin-bottom: 16px; }
+  .dep-text { order: 3; margin-bottom: 0; }
+  .dep-card::before { content: none; }
+  .dep-text { font-size: .95rem; line-height: 1.7; opacity: .85; margin-bottom: 0; position: relative; }
   .dep-autor { display: flex; align-items: center; gap: 14px; }
   .dep-avatar {
     width: 48px; height: 48px;
@@ -454,6 +472,30 @@
   .dep-nome { font-weight: 700; font-size: .95rem; }
   .dep-trip { font-size: .8rem; opacity: .6; margin-top: 2px; }
   .dep-stars { color: var(--laranja); font-size: .85rem; margin-top: 6px; }
+  .dep-nav { display: flex; gap: 12px; margin-top: 32px; justify-content: center; }
+  .dep-btn {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255,255,255,0.2);
+    background: transparent;
+    color: var(--branco);
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background .2s, border-color .2s;
+  }
+  .dep-btn:hover { background: var(--laranja); border-color: var(--laranja); }
+  .dep-google-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 14px;
+    opacity: .6;
+    font-size: .75rem;
+    font-weight: 600;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+  }
 
   /* ---- CONTATO ---- */
   .contato {
@@ -545,19 +587,17 @@
   /* ---- FOOTER ---- */
   footer {
     background: #040f09;
-    padding: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     border-top: 1px solid rgba(255,255,255,0.06);
   }
-  .footer-brand .nav-logo img { height: 56px; mix-blend-mode: screen; filter: brightness(1.05); margin-bottom: 0; }
-  .footer-tagline { font-size: .85rem; opacity: .4; }
-  .footer-links { display: flex; gap: 28px; }
-  .footer-links a { color: rgba(255,255,255,0.5); text-decoration: none; font-size: .85rem; transition: color .2s; }
-  .footer-links a:hover { color: var(--laranja); }
-  .footer-right { text-align: right; font-size: .8rem; opacity: .3; }
-  .footer-social { display: flex; gap: 16px; margin-top: 16px; justify-content: flex-end; }
+  .footer-top {
+    padding: 50px 60px;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 1.2fr;
+    gap: 48px;
+  }
+  .footer-brand .nav-logo img { height: 120px; mix-blend-mode: screen; filter: brightness(1.05); }
+  .footer-tagline { font-size: .85rem; opacity: .4; margin-top: 10px; }
+  .footer-social { display: flex; gap: 12px; margin-top: 20px; }
   .social-btn {
     width: 38px; height: 38px;
     border-radius: 50%;
@@ -569,6 +609,29 @@
     transition: background .2s;
   }
   .social-btn:hover { background: var(--laranja); }
+  .footer-nav h4, .footer-info h4 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--laranja);
+    margin-bottom: 16px;
+  }
+  .footer-links { display: flex; flex-direction: column; gap: 10px; }
+  .footer-links a { color: rgba(255,255,255,0.5); text-decoration: none; font-size: .9rem; transition: color .2s; }
+  .footer-links a:hover { color: var(--branco); }
+  .footer-info p { font-size: .85rem; color: rgba(255,255,255,0.45); line-height: 1.7; margin-bottom: 16px; }
+  .footer-info p strong { color: rgba(255,255,255,0.75); font-weight: 600; }
+  .footer-bottom {
+    padding: 18px 60px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: .78rem;
+    color: rgba(255,255,255,0.2);
+  }
   .divider { height: 4px; background: linear-gradient(90deg, var(--verde), var(--laranja), var(--verde)); }
 
   @media (max-width: 900px) {
@@ -599,7 +662,8 @@
     <img src="logo.png.png" alt="Tamo Junto Aventuras">
   </div>
   <ul class="nav-links">
-    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#" onclick="window.scrollTo({top:0});return false;">Início</a></li>
+    <li><a href="#sobre">Quem Somos</a></li>
     <li><a href="#destinos">Destinos</a></li>
     <li><a href="#diferenciais">Experiências</a></li>
     <li><a href="#depoimentos">Depoimentos</a></li>
@@ -631,9 +695,17 @@
   <div class="sobre-texto">
     <div class="sobre-tag">Quem somos</div>
     <h2>Aventuras que unem pessoas</h2>
-    <p class="sobre-lead">Somos uma empresa de turismo com aventura! Com mais de <strong>1.000 clientes atendidos</strong> e <strong>300 viagens realizadas</strong>, somos referência regional em proporcionar experiências que combinam aventura, natureza, cultura e conexão genuína.</p>
-    <p>Nosso propósito é criar momentos inesquecíveis, oferecendo experiências únicas que unem emoção, descoberta e total segurança.</p>
-    <p class="sobre-cta-text">✦ Conte conosco para transformar suas viagens em histórias incríveis!</p>
+    <p class="sobre-lead">Somos a <strong>Tamo Junto Aventuras</strong>, referência em <strong>turismo de aventura em Natal/RN</strong>! Com mais de <strong>1.000 clientes atendidos</strong> e <strong>500 viagens realizadas</strong>, levamos você a viver experiências radicais e inesquecíveis no coração do Rio Grande do Norte.</p>
+    <p>Oferecemos <strong>rapel</strong>, <strong>trilhas</strong>, <strong>passeios de quadricíclo</strong>, <strong>caiaque</strong>, <strong>expedições</strong> e <strong>bate-volta</strong> — tudo com total segurança, guias certificados e estrutura completa para você focar apenas em aproveitar cada momento.</p>
+    <p class="sobre-cta-text">✦ Se você busca aventura em Natal/RN, você encontrou o lugar certo!</p>
+    <div class="sobre-badges">
+      <span class="sobre-badge">🧗 Rapel</span>
+      <span class="sobre-badge">🥾 Trilhas</span>
+      <span class="sobre-badge">🏍️ Quadricíclo</span>
+      <span class="sobre-badge">🛶 Caiaque</span>
+      <span class="sobre-badge">🗺️ Expedições</span>
+      <span class="sobre-badge">🚗 Bate-Volta</span>
+    </div>
     <div class="sobre-stats">
       <div class="stat">
         <div class="stat-num"><span class="counter" data-target="4" data-suffix="+">0</span><span>+</span></div>
@@ -646,6 +718,10 @@
       <div class="stat">
         <div class="stat-num"><span class="counter" data-target="50" data-suffix="+">0</span><span>+</span></div>
         <div class="stat-label">Destinos</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num"><span class="counter" data-target="500" data-suffix="+">0</span><span>+</span></div>
+        <div class="stat-label">Atividades realizadas</div>
       </div>
     </div>
   </div>
@@ -726,9 +802,9 @@
       <p>Todas as nossas expedições incluem seguro de vida e acidentes pessoais para todos os participantes.</p>
     </div>
     <div class="dif-item">
-      <div class="dif-icon">🍽️</div>
-      <h3>Alimentação completa</h3>
-      <p>Refeições balanceadas preparadas com produtos locais e frescos durante toda a experiência.</p>
+      <div class="dif-icon">🚐</div>
+      <h3>Transporte incluso</h3>
+      <p>Van categoria turismo do início ao fim. Você não se preocupa com nada — a gente cuida de tudo para você aproveitar 100% do passeio.</p>
     </div>
     <div class="dif-item">
       <div class="dif-icon">📸</div>
@@ -748,39 +824,19 @@
       <h2 class="section-title">Quem já foi, voltou</h2>
     </div>
   </div>
-  <div class="dep-grid">
-    <div class="dep-card">
-      <p class="dep-text">Uma experiência incrível! A organização foi impecável, os guias são apaixonados pelo que fazem e a natureza é simplesmente deslumbrante. Já estou planejando a próxima!</p>
-      <div class="dep-autor">
-        <div class="dep-avatar">M</div>
-        <div>
-          <div class="dep-nome">Marina Souza</div>
-          <div class="dep-trip">Serra da Canastra, 2024</div>
-          <div class="dep-stars">★★★★★</div>
-        </div>
+  <div class="dep-carousel">
+    <div class="dep-overflow">
+      <div class="dep-grid" id="dep-grid">
+        <div class="dep-card"><div class="dep-google-badge"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg><span>Google</span></div><p class="dep-text">Fiz a <strong>Travessia do Descobrimento Potiguar de 60km</strong> e passeios de caiaque com a TMJ — experiências simplesmente incríveis! Como viajante solo, me senti segura do início ao fim. A energia da galera é contagiante, a organização é impecável e a equipe transmite total tranquilidade. Já estou me preparando pro rapel! 🤜</p><div class="dep-autor"><div class="dep-avatar" style="background:#e8710a;">K</div><div><div class="dep-nome">Karla Melo</div><div class="dep-trip">Guia local · Há 6 semanas</div><div class="dep-stars">★★★★★</div></div></div></div>
+        <div class="dep-card"><div class="dep-google-badge"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg><span>Google</span></div><p class="dep-text"><strong>Equipe maravilhosa!</strong> O Iran, que foi conosco, foi super atencioso — cuidou de cada um, bem-humorado, alto astral e animava a trilha com as piadas dele. Pontuais, responsáveis e seguros na ida e na volta. Recomendo demais a Tamo Junto! 🌟</p><div class="dep-autor"><div class="dep-avatar" style="background:#1a73e8;">I</div><div><div class="dep-nome">Isabel</div><div class="dep-trip">Guia local · Há 6 semanas</div><div class="dep-stars">★★★★★</div></div></div></div>
+        <div class="dep-card"><div class="dep-google-badge"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg><span>Google</span></div><p class="dep-text"><strong>Experiência incrível!</strong> Equipe extremamente profissional que transmitiu segurança durante todo o passeio. Desde o primeiro momento até o fim, tudo organizado e tranquilo. Recomendo de olhos fechados! 👏</p><div class="dep-autor"><div class="dep-avatar" style="background:#34a853;">J</div><div><div class="dep-nome">JGutz Alves</div><div class="dep-trip">Há 9 semanas</div><div class="dep-stars">★★★★★</div></div></div></div>
+        <div class="dep-card"><div class="dep-google-badge"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg><span>Google</span></div><p class="dep-text"><strong>Empresa top!</strong> Viagem tranquila, guias muito bem preparados e atenciosos do começo ao fim. Uma experiência sem preocupações — só curtir! Recomendo! 👊</p><div class="dep-autor"><div class="dep-avatar" style="background:#f57c00;">J</div><div><div class="dep-nome">João Coringa</div><div class="dep-trip">Há 10 semanas</div><div class="dep-stars">★★★★★</div></div></div></div>
+        <div class="dep-card"><div class="dep-google-badge"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg><span>Google</span></div><p class="dep-text"><strong>Super indico!!</strong> A equipe é maravilhosa — profissionais extremamente comprometidos, acolhedores e que orientam cada cliente com cuidado. Desde a primeira experiência já me senti como se os conhecesse há muito tempo. Galera, vão e verão do que estou falando. <strong>Tamo junto! 🤜</strong></p><div class="dep-autor"><div class="dep-avatar" style="background:#c2185b;">L</div><div><div class="dep-nome">Leide Santana</div><div class="dep-trip">Há 5 semanas</div><div class="dep-stars">★★★★★</div></div></div></div>
       </div>
     </div>
-    <div class="dep-card">
-      <p class="dep-text">Levamos toda a equipe da empresa e foi transformador. Melhorou muito o entrosamento do time. Voltamos mais unidos e motivados. Recomendo demais!</p>
-      <div class="dep-autor">
-        <div class="dep-avatar">R</div>
-        <div>
-          <div class="dep-nome">Ricardo Alves</div>
-          <div class="dep-trip">Team Building Corporativo</div>
-          <div class="dep-stars">★★★★★</div>
-        </div>
-      </div>
-    </div>
-    <div class="dep-card">
-      <p class="dep-text">Fui com zero experiência em trilhas e a equipe me deu todo o suporte necessário. Me senti segura durante toda a expedição. Experiência inesquecível!</p>
-      <div class="dep-autor">
-        <div class="dep-avatar">C</div>
-        <div>
-          <div class="dep-nome">Camila Ferreira</div>
-          <div class="dep-trip">Chapada Diamantina, 2024</div>
-          <div class="dep-stars">★★★★★</div>
-        </div>
-      </div>
+    <div class="dep-nav">
+      <button class="dep-btn" onclick="moverDep(-1)">&#8592;</button>
+      <button class="dep-btn" onclick="moverDep(1)">&#8594;</button>
     </div>
   </div>
 </section>
@@ -808,7 +864,7 @@
       </div>
       <div class="form-group">
         <label>Telefone / WhatsApp</label>
-        <input type="tel" placeholder="(11) 99999-9999" id="campo-telefone">
+        <input type="tel" placeholder="(84) 99999-9999" id="campo-telefone" maxlength="15" oninput="mascaraTel(this)">
       </div>
       <div class="form-group">
         <label>Sua mensagem</label>
@@ -825,27 +881,45 @@
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-brand">
-    <div class="nav-logo">
-      <img src="logo.png.png" alt="Tamo Junto Aventuras">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="nav-logo">
+        <img src="logo.png.png" alt="Tamo Junto Aventuras">
+      </div>
+      <div class="footer-tagline">Aventuras que unem pessoas</div>
+      <div class="footer-social">
+        <a href="#" class="social-btn" title="Instagram">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        </a>
+        <a href="#" class="social-btn" title="Facebook">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </a>
+        <a href="#" class="social-btn" title="LinkedIn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </a>
+      </div>
     </div>
-    <div class="footer-tagline">Aventuras que unem pessoas</div>
-  </div>
-  <div class="footer-links">
-    <a href="#sobre">Sobre</a>
-    <a href="#destinos">Destinos</a>
-    <a href="#diferenciais">Experiências</a>
-    <a href="#depoimentos">Depoimentos</a>
-    <a href="#contato">Contato</a>
-  </div>
-  <div class="footer-right">
-    <div>&copy; 2025 Tamo Junto Aventuras</div>
-    <div>Todos os direitos reservados</div>
-    <div class="footer-social">
-      <a href="#" class="social-btn" title="Instagram">IG</a>
-      <a href="#" class="social-btn" title="WhatsApp">WA</a>
-      <a href="#" class="social-btn" title="Facebook">FB</a>
+    <div class="footer-nav">
+      <h4>Navegação</h4>
+      <div class="footer-links">
+        <a href="#">Início</a>
+        <a href="#sobre">Quem Somos</a>
+        <a href="#destinos">Destinos</a>
+        <a href="#diferenciais">Experiências</a>
+        <a href="#depoimentos">Depoimentos</a>
+        <a href="#contato">Contato</a>
+      </div>
     </div>
+    <div class="footer-info">
+      <h4>Endereço</h4>
+      <p>Av. Engenheiro Roberto Freire, 1962 — Loja 13<br>Cond. Seaway Shopping, Capim Macio<br>Natal/RN — CEP 59082-095</p>
+      <h4>CNPJ</h4>
+      <p><strong>44.452.136/0001-08</strong></p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2025 Tamo Junto Aventuras — Todos os direitos reservados</span>
+    <span>Tamo Junto Turismo e Aventura LTDA</span>
   </div>
 </footer>
 
@@ -874,6 +948,40 @@
     document.getElementById('form-contato').style.display = 'none';
     document.getElementById('form-success').style.display = 'block';
   }
+
+  // Phone mask
+  function mascaraTel(el) {
+    let v = el.value.replace(/\D/g, '').slice(0, 11);
+    if (v.length > 10) {
+      v = v.replace(/^(\d{2})(\d{5})(\d{4})$/, '($1) $2-$3');
+    } else if (v.length > 6) {
+      v = v.replace(/^(\d{2})(\d{4,5})(\d{0,4})/, '($1) $2-$3');
+    } else if (v.length > 2) {
+      v = v.replace(/^(\d{2})(\d+)/, '($1) $2');
+    } else if (v.length > 0) {
+      v = v.replace(/^(\d+)/, '($1');
+    }
+    el.value = v;
+  }
+
+  // Carousel depoimentos
+  let depIndex = 0;
+  function initDep() {
+    const carousel = document.querySelector('.dep-overflow');
+    const cards = document.querySelectorAll('.dep-card');
+    const cardW = Math.floor((carousel.offsetWidth - 56) / 3);
+    cards.forEach(c => c.style.width = cardW + 'px');
+  }
+  function moverDep(dir) {
+    const grid = document.getElementById('dep-grid');
+    const total = grid.children.length;
+    const max = total - 3;
+    depIndex = Math.max(0, Math.min(depIndex + dir, max));
+    const cardWidth = grid.children[0].offsetWidth + 28;
+    grid.style.transform = `translateX(-${depIndex * cardWidth}px)`;
+  }
+  window.addEventListener('load', initDep);
+  window.addEventListener('resize', () => { initDep(); depIndex = 0; document.getElementById('dep-grid').style.transform = ''; });
 
   // Counter animation
   const counters = document.querySelectorAll('.counter');
