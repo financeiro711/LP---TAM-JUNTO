@@ -976,7 +976,9 @@
     const grid = document.getElementById('dep-grid');
     const total = grid.children.length;
     const max = total - 3;
-    depIndex = Math.max(0, Math.min(depIndex + dir, max));
+    depIndex = depIndex + dir;
+    if (depIndex > max) depIndex = 0;
+    if (depIndex < 0) depIndex = max;
     const cardWidth = grid.children[0].offsetWidth + 28;
     grid.style.transform = `translateX(-${depIndex * cardWidth}px)`;
   }
