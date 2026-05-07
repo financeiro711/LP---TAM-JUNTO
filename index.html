@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tamo Junto Aventuras</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --verde: #0d4a2e;
+    --verde-escuro: #082d1c;
+    --laranja: #f07d00;
+    --laranja-vivo: #ff8c00;
+    --branco: #ffffff;
+    --cinza-claro: #f4f0ea;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Barlow', sans-serif;
+    background: var(--verde-escuro);
+    color: var(--branco);
+    overflow-x: hidden;
+  }
+
+  /* ---- NAV ---- */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 60px;
+    height: 72px;
+    background: rgba(8,29,20,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(240,125,0,0.15);
+  }
+  .nav-logo {
+    display: flex;
+    align-items: center;
+  }
+  .nav-logo img {
+    height: 64px;
+    width: auto;
+    mix-blend-mode: screen;
+    filter: brightness(1.1) contrast(1.05);
+  }
+  .nav-logo span { color: var(--laranja); }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a {
+    color: rgba(255,255,255,0.85);
+    text-decoration: none;
+    font-family: 'Barlow', sans-serif;
+    font-size: .95rem;
+    font-weight: 500;
+    letter-spacing: .3px;
+    transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--laranja); }
+  .nav-cta {
+    background: var(--laranja);
+    color: var(--branco) !important;
+    padding: 10px 24px;
+    border-radius: 4px;
+    transition: background .2s !important;
+  }
+  .nav-cta:hover { background: #d96e00 !important; color: var(--branco) !important; }
+
+  /* ---- HERO ---- */
+  .hero {
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: var(--verde-escuro);
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 60% 40%, rgba(240,125,0,0.12) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 80% at 20% 80%, rgba(13,74,46,0.8) 0%, transparent 60%);
+  }
+  .hero-texture {
+    position: absolute;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(0deg, transparent, transparent 80px, rgba(255,255,255,0.015) 80px, rgba(255,255,255,0.015) 81px),
+      repeating-linear-gradient(90deg, transparent, transparent 80px, rgba(255,255,255,0.015) 80px, rgba(255,255,255,0.015) 81px);
+  }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 0 20px;
+    animation: fadeUp .9s ease both;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero-eyebrow {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: .85rem;
+    font-weight: 700;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--laranja);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+  }
+  .hero-eyebrow::before, .hero-eyebrow::after {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 1px;
+    background: var(--laranja);
+    opacity: .6;
+  }
+  .hero-logo-img {
+    animation: fadeUp .9s .1s ease both;
+    margin: 16px 0 8px;
+  }
+  .hero-logo-img img {
+    width: clamp(260px, 42vw, 560px);
+    height: auto;
+    /* Inverte preto/branco para funcionar no fundo escuro */
+    filter: invert(1) sepia(1) saturate(4) hue-rotate(345deg)
+            drop-shadow(0 0 30px rgba(240,125,0,0.35));
+  }
+  .hero-sub {
+    font-family: 'Barlow', sans-serif;
+    font-size: clamp(1rem, 2vw, 1.35rem);
+    font-weight: 400;
+    color: rgba(255,255,255,0.6);
+    margin-top: 14px;
+    letter-spacing: .5px;
+    animation: fadeUp .9s .2s ease both;
+  }
+  .hero-btns {
+    margin-top: 40px;
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+    animation: fadeUp .9s .35s ease both;
+  }
+  .btn-primary {
+    background: var(--laranja);
+    color: var(--branco);
+    padding: 15px 40px;
+    font-family: 'Barlow', sans-serif;
+    font-size: .95rem;
+    font-weight: 600;
+    letter-spacing: .5px;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: transform .2s, background .2s, box-shadow .2s;
+    box-shadow: 0 8px 30px rgba(240,125,0,0.4);
+  }
+  .btn-primary:hover {
+    transform: translateY(-3px);
+    background: #d96e00;
+    box-shadow: 0 14px 40px rgba(240,125,0,0.55);
+  }
+  .btn-ghost {
+    border: 1.5px solid rgba(255,255,255,0.25);
+    color: rgba(255,255,255,0.85);
+    padding: 15px 40px;
+    font-family: 'Barlow', sans-serif;
+    font-size: .95rem;
+    font-weight: 600;
+    letter-spacing: .5px;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: border-color .2s, color .2s, transform .2s;
+  }
+  .btn-ghost:hover { border-color: var(--laranja); color: var(--branco); transform: translateY(-3px); }
+  .hero-scroll {
+    position: absolute;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    opacity: .3;
+    font-family: 'Barlow', sans-serif;
+    font-size: .7rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    animation: bounce 2s infinite;
+  }
+  @keyframes bounce {
+    0%,100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(8px); }
+  }
+  .hero-scroll svg { width: 16px; }
+
+  /* ---- SOBRE ---- */
+  .sobre {
+    background: var(--cinza-claro);
+    color: var(--verde-escuro);
+    padding: 120px 60px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .sobre-tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: .8rem;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--laranja);
+    margin-bottom: 16px;
+  }
+  .sobre h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 5vw, 5rem);
+    line-height: 1;
+    color: var(--verde-escuro);
+    margin-bottom: 28px;
+  }
+  .sobre p {
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: #3a3a3a;
+    margin-bottom: 16px;
+  }
+  .sobre-stats {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 24px;
+    margin-top: 40px;
+  }
+  .stat { border-left: 3px solid var(--laranja); padding-left: 16px; }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.8rem;
+    color: var(--verde);
+    line-height: 1;
+  }
+  .stat-num span { color: var(--laranja); }
+  .stat-label {
+    font-size: .85rem;
+    color: #666;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 4px;
+  }
+  .sobre-visual { display: grid; grid-template-rows: auto auto; gap: 20px; }
+  .sobre-card {
+    background: var(--verde);
+    border-radius: 12px;
+    padding: 36px;
+    color: var(--branco);
+    position: relative;
+    overflow: hidden;
+  }
+  .sobre-card::before {
+    content: '';
+    position: absolute;
+    top: -20px; right: -20px;
+    width: 100px; height: 100px;
+    background: var(--laranja);
+    border-radius: 50%;
+    opacity: .15;
+  }
+  .sobre-card-icon { font-size: 2rem; margin-bottom: 12px; }
+  .sobre-card h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 1px; margin-bottom: 8px; }
+  .sobre-card p { font-size: .9rem; opacity: .8; line-height: 1.6; }
+
+  /* ---- DESTINOS ---- */
+  .destinos { background: var(--verde-escuro); padding: 120px 60px; }
+  .section-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 60px;
+  }
+  .section-tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: .8rem;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--laranja);
+    margin-bottom: 10px;
+  }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 4vw, 4.5rem);
+    line-height: 1;
+    letter-spacing: 1px;
+  }
+  .destinos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .destino-card {
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    height: 380px;
+    cursor: pointer;
+    transition: transform .3s;
+  }
+  .destino-card:hover { transform: translateY(-6px); }
+  .destino-bg {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    transition: transform .4s;
+    position: absolute;
+    inset: 0;
+  }
+  .destino-card:hover .destino-bg { transform: scale(1.05); }
+  .destino-grad {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(8,29,20,0.95) 0%, rgba(8,29,20,0.3) 50%, transparent 100%);
+  }
+  .destino-info { position: absolute; bottom: 0; left: 0; right: 0; padding: 28px; }
+  .destino-badge {
+    display: inline-block;
+    background: var(--laranja);
+    color: var(--branco);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: .7rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 3px;
+    margin-bottom: 10px;
+  }
+  .destino-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 1px; line-height: 1.1; }
+  .destino-local { font-size: .85rem; opacity: .7; margin-top: 4px; }
+  .destino-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(240,125,0,0.15);
+    opacity: 0;
+    transition: opacity .3s;
+    border: 2px solid var(--laranja);
+    border-radius: 12px;
+  }
+  .destino-card:hover .destino-overlay { opacity: 1; }
+  .card-1 { background: linear-gradient(135deg, #1a6b3c 0%, #0d4a2e 100%); }
+  .card-2 { background: linear-gradient(135deg, #2d5a1b 0%, #1a3a0f 100%); }
+  .card-3 { background: linear-gradient(135deg, #0d4a2e 0%, #082d1c 100%); }
+
+  /* ---- DIFERENCIAIS ---- */
+  .diferenciais {
+    background: var(--laranja);
+    padding: 100px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .diferenciais::before {
+    content: 'AVENTURA';
+    position: absolute;
+    top: -20px; right: -30px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18rem;
+    color: rgba(0,0,0,0.07);
+    white-space: nowrap;
+    pointer-events: none;
+  }
+  .diferenciais .section-tag { color: rgba(255,255,255,0.7); }
+  .diferenciais .section-title { color: var(--verde-escuro); }
+  .dif-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 32px; margin-top: 60px; }
+  .dif-item {
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(4px);
+    border-radius: 12px;
+    padding: 36px 28px;
+    transition: background .2s, transform .2s;
+  }
+  .dif-item:hover { background: rgba(255,255,255,0.25); transform: translateY(-4px); }
+  .dif-icon { font-size: 2.4rem; margin-bottom: 16px; }
+  .dif-item h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 1px;
+    color: var(--verde-escuro);
+    margin-bottom: 10px;
+  }
+  .dif-item p { font-size: .9rem; color: rgba(8,29,20,0.75); line-height: 1.6; }
+
+  /* ---- DEPOIMENTOS ---- */
+  .depoimentos { background: var(--verde); padding: 120px 60px; }
+  .dep-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 28px; margin-top: 60px; }
+  .dep-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: 36px;
+    position: relative;
+  }
+  .dep-card::before {
+    content: '"';
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 8rem;
+    color: var(--laranja);
+    opacity: .25;
+    position: absolute;
+    top: -10px; left: 24px;
+    line-height: 1;
+  }
+  .dep-text { font-size: 1rem; line-height: 1.7; opacity: .85; margin-bottom: 24px; position: relative; }
+  .dep-autor { display: flex; align-items: center; gap: 14px; }
+  .dep-avatar {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    background: var(--laranja);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+  }
+  .dep-nome { font-weight: 700; font-size: .95rem; }
+  .dep-trip { font-size: .8rem; opacity: .6; margin-top: 2px; }
+  .dep-stars { color: var(--laranja); font-size: .85rem; margin-top: 6px; }
+
+  /* ---- CONTATO ---- */
+  .contato {
+    background: var(--verde-escuro);
+    padding: 120px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .contato::after {
+    content: '';
+    position: absolute;
+    top: -200px; right: -200px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(240,125,0,0.1) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .contato-inner { max-width: 720px; margin: 0 auto; position: relative; z-index: 1; }
+  .contato-header { text-align: center; margin-bottom: 60px; }
+  .contato-header .section-tag { display: block; text-align: center; margin-bottom: 10px; }
+  .contato-header .section-title { font-size: clamp(2.5rem, 5vw, 5rem); }
+  .contato-header p { font-size: 1rem; opacity: .6; margin-top: 16px; letter-spacing: .5px; }
+  .form-group { margin-bottom: 24px; }
+  .form-group label {
+    display: block;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: .8rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 10px;
+  }
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 8px;
+    padding: 16px 20px;
+    color: var(--branco);
+    font-family: 'Barlow', sans-serif;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color .2s, background .2s;
+  }
+  .form-group input:focus,
+  .form-group textarea:focus {
+    border-color: var(--laranja);
+    background: rgba(240,125,0,0.06);
+  }
+  .form-group input::placeholder,
+  .form-group textarea::placeholder { color: rgba(255,255,255,0.25); }
+  .form-group textarea { resize: vertical; min-height: 140px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .btn-submit {
+    width: 100%;
+    background: var(--laranja);
+    border: none;
+    color: var(--branco);
+    padding: 18px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background .2s, transform .2s, box-shadow .2s;
+    box-shadow: 0 8px 30px rgba(240,125,0,0.35);
+    margin-top: 8px;
+  }
+  .btn-submit:hover {
+    background: #d96e00;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(240,125,0,0.5);
+  }
+  .form-success {
+    display: none;
+    text-align: center;
+    padding: 40px;
+    background: rgba(240,125,0,0.1);
+    border: 1px solid var(--laranja);
+    border-radius: 12px;
+    margin-top: 20px;
+  }
+  .form-success h3 { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--laranja); margin-bottom: 10px; }
+  .form-success p { opacity: .7; }
+
+  /* ---- FOOTER ---- */
+  footer {
+    background: #040f09;
+    padding: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+  .footer-brand .nav-logo img { height: 56px; mix-blend-mode: screen; filter: brightness(1.05); margin-bottom: 0; }
+  .footer-tagline { font-size: .85rem; opacity: .4; }
+  .footer-links { display: flex; gap: 28px; }
+  .footer-links a { color: rgba(255,255,255,0.5); text-decoration: none; font-size: .85rem; transition: color .2s; }
+  .footer-links a:hover { color: var(--laranja); }
+  .footer-right { text-align: right; font-size: .8rem; opacity: .3; }
+  .footer-social { display: flex; gap: 16px; margin-top: 16px; justify-content: flex-end; }
+  .social-btn {
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.07);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--branco);
+    text-decoration: none;
+    font-size: .85rem;
+    transition: background .2s;
+  }
+  .social-btn:hover { background: var(--laranja); }
+  .divider { height: 4px; background: linear-gradient(90deg, var(--verde), var(--laranja), var(--verde)); }
+
+  @media (max-width: 900px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .sobre { grid-template-columns: 1fr; padding: 80px 24px; gap: 40px; }
+    .destinos { padding: 80px 24px; }
+    .destinos-grid { grid-template-columns: 1fr; }
+    .diferenciais { padding: 80px 24px; }
+    .dif-grid { grid-template-columns: 1fr 1fr; }
+    .depoimentos { padding: 80px 24px; }
+    .dep-grid { grid-template-columns: 1fr; }
+    .contato { padding: 80px 24px; }
+    .form-row { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 32px; padding: 40px 24px; text-align: center; }
+    .footer-links { flex-wrap: wrap; justify-content: center; }
+    .footer-right { text-align: center; }
+    .footer-social { justify-content: center; }
+    .section-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <img src="logo.png.png" alt="Tamo Junto Aventuras">
+  </div>
+  <ul class="nav-links">
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#destinos">Destinos</a></li>
+    <li><a href="#diferenciais">Experiências</a></li>
+    <li><a href="#depoimentos">Depoimentos</a></li>
+    <li><a href="#contato" class="nav-cta">Fale Conosco</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-texture"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Aventuras que transformam</div>
+    <div class="hero-logo-img">
+      <img src="logo.png.png" alt="Tamo Junto Aventuras">
+    </div>
+    <p class="hero-sub">Experiências únicas na natureza para grupos e empresas</p>
+    <div class="hero-btns">
+      <a href="#destinos" class="btn-primary">Ver Destinos</a>
+      <a href="#sobre" class="btn-ghost">Saiba Mais</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span>Role para baixo</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M12 5v14M5 12l7 7 7-7"/>
+    </svg>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SOBRE -->
+<section class="sobre" id="sobre">
+  <div class="sobre-texto">
+    <div class="sobre-tag">Quem somos</div>
+    <h2>Aventuras que unem pessoas</h2>
+    <p>A Tamo Junto Aventuras nasceu da paixão por explorar a natureza e criar laços genuínos entre pessoas. Somos especialistas em experiências outdoor para grupos, equipes corporativas e famílias.</p>
+    <p>Com mais de uma década de experiência, levamos nossos clientes a trilhas, cachoeiras, escaladas e vivências que ficam para sempre na memória.</p>
+    <div class="sobre-stats">
+      <div class="stat">
+        <div class="stat-num">10<span>+</span></div>
+        <div class="stat-label">Anos de experiência</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">5<span>k</span></div>
+        <div class="stat-label">Aventureiros</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">30<span>+</span></div>
+        <div class="stat-label">Destinos</div>
+      </div>
+    </div>
+  </div>
+  <div class="sobre-visual">
+    <div class="sobre-card">
+      <div class="sobre-card-icon">🏔️</div>
+      <h3>Segurança em primeiro lugar</h3>
+      <p>Toda a equipe é certificada e os equipamentos passam por rigorosa manutenção. Sua segurança é nossa prioridade absoluta.</p>
+    </div>
+    <div class="sobre-card">
+      <div class="sobre-card-icon">🌿</div>
+      <h3>Turismo responsável</h3>
+      <p>Trabalhamos com baixo impacto ambiental, respeitamos as comunidades locais e contribuímos para a preservação da natureza.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- DESTINOS -->
+<section class="destinos" id="destinos">
+  <div class="section-header">
+    <div>
+      <div class="section-tag">Onde vamos</div>
+      <h2 class="section-title">Nossos Destinos</h2>
+    </div>
+    <a href="#contato" class="btn-ghost">Ver todos</a>
+  </div>
+  <div class="destinos-grid">
+    <div class="destino-card">
+      <div class="destino-bg card-1"></div>
+      <div class="destino-grad"></div>
+      <div class="destino-info">
+        <span class="destino-badge">Trilha</span>
+        <div class="destino-name">Serra da Canastra</div>
+        <div class="destino-local">📍 Minas Gerais</div>
+      </div>
+      <div class="destino-overlay"></div>
+    </div>
+    <div class="destino-card">
+      <div class="destino-bg card-2"></div>
+      <div class="destino-grad"></div>
+      <div class="destino-info">
+        <span class="destino-badge">Cachoeira</span>
+        <div class="destino-name">Chapada Diamantina</div>
+        <div class="destino-local">📍 Bahia</div>
+      </div>
+      <div class="destino-overlay"></div>
+    </div>
+    <div class="destino-card">
+      <div class="destino-bg card-3"></div>
+      <div class="destino-grad"></div>
+      <div class="destino-info">
+        <span class="destino-badge">Escalada</span>
+        <div class="destino-name">Vale do Pati</div>
+        <div class="destino-local">📍 Bahia</div>
+      </div>
+      <div class="destino-overlay"></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- DIFERENCIAIS -->
+<section class="diferenciais" id="diferenciais">
+  <div class="section-tag">Por que nos escolher</div>
+  <h2 class="section-title">Nossa experiência, sua aventura</h2>
+  <div class="dif-grid">
+    <div class="dif-item">
+      <div class="dif-icon">🧭</div>
+      <h3>Guias certificados</h3>
+      <p>Profissionais experientes com certificação nacional e conhecimento profundo de cada destino.</p>
+    </div>
+    <div class="dif-item">
+      <div class="dif-icon">🛡️</div>
+      <h3>Seguro incluso</h3>
+      <p>Todas as nossas expedições incluem seguro de vida e acidentes pessoais para todos os participantes.</p>
+    </div>
+    <div class="dif-item">
+      <div class="dif-icon">🍽️</div>
+      <h3>Alimentação completa</h3>
+      <p>Refeições balanceadas preparadas com produtos locais e frescos durante toda a experiência.</p>
+    </div>
+    <div class="dif-item">
+      <div class="dif-icon">📸</div>
+      <h3>Fotos profissionais</h3>
+      <p>Fotógrafo dedicado para registrar cada momento especial da sua aventura sem custo adicional.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- DEPOIMENTOS -->
+<section class="depoimentos" id="depoimentos">
+  <div class="section-header">
+    <div>
+      <div class="section-tag">O que dizem</div>
+      <h2 class="section-title">Quem já foi, voltou</h2>
+    </div>
+  </div>
+  <div class="dep-grid">
+    <div class="dep-card">
+      <p class="dep-text">Uma experiência incrível! A organização foi impecável, os guias são apaixonados pelo que fazem e a natureza é simplesmente deslumbrante. Já estou planejando a próxima!</p>
+      <div class="dep-autor">
+        <div class="dep-avatar">M</div>
+        <div>
+          <div class="dep-nome">Marina Souza</div>
+          <div class="dep-trip">Serra da Canastra, 2024</div>
+          <div class="dep-stars">★★★★★</div>
+        </div>
+      </div>
+    </div>
+    <div class="dep-card">
+      <p class="dep-text">Levamos toda a equipe da empresa e foi transformador. Melhorou muito o entrosamento do time. Voltamos mais unidos e motivados. Recomendo demais!</p>
+      <div class="dep-autor">
+        <div class="dep-avatar">R</div>
+        <div>
+          <div class="dep-nome">Ricardo Alves</div>
+          <div class="dep-trip">Team Building Corporativo</div>
+          <div class="dep-stars">★★★★★</div>
+        </div>
+      </div>
+    </div>
+    <div class="dep-card">
+      <p class="dep-text">Fui com zero experiência em trilhas e a equipe me deu todo o suporte necessário. Me senti segura durante toda a expedição. Experiência inesquecível!</p>
+      <div class="dep-autor">
+        <div class="dep-avatar">C</div>
+        <div>
+          <div class="dep-nome">Camila Ferreira</div>
+          <div class="dep-trip">Chapada Diamantina, 2024</div>
+          <div class="dep-stars">★★★★★</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTATO -->
+<section class="contato" id="contato">
+  <div class="contato-inner">
+    <div class="contato-header">
+      <span class="section-tag">Vamos juntos?</span>
+      <h2 class="section-title">Fale Conosco</h2>
+      <p>Preencha o formulário e nossa equipe entrará em contato em até 24 horas.</p>
+    </div>
+    <form id="form-contato" onsubmit="enviarForm(event)">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Seu nome</label>
+          <input type="text" placeholder="João Silva" required>
+        </div>
+        <div class="form-group">
+          <label>E-mail</label>
+          <input type="email" placeholder="joao@email.com" required>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Telefone / WhatsApp</label>
+          <input type="tel" placeholder="(11) 99999-9999">
+        </div>
+        <div class="form-group">
+          <label>Destino de interesse</label>
+          <input type="text" placeholder="Serra da Canastra, Chapada...">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Sua mensagem</label>
+        <textarea placeholder="Conte sobre o grupo, datas de interesse, dúvidas..."></textarea>
+      </div>
+      <button type="submit" class="btn-submit">Enviar mensagem</button>
+    </form>
+    <div class="form-success" id="form-success">
+      <h3>Mensagem enviada!</h3>
+      <p>Obrigado pelo contato. Retornaremos em breve.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">
+    <div class="nav-logo">
+      <img src="logo.png.png" alt="Tamo Junto Aventuras">
+    </div>
+    <div class="footer-tagline">Aventuras que unem pessoas</div>
+  </div>
+  <div class="footer-links">
+    <a href="#sobre">Sobre</a>
+    <a href="#destinos">Destinos</a>
+    <a href="#diferenciais">Experiências</a>
+    <a href="#depoimentos">Depoimentos</a>
+    <a href="#contato">Contato</a>
+  </div>
+  <div class="footer-right">
+    <div>&copy; 2025 Tamo Junto Aventuras</div>
+    <div>Todos os direitos reservados</div>
+    <div class="footer-social">
+      <a href="#" class="social-btn" title="Instagram">IG</a>
+      <a href="#" class="social-btn" title="WhatsApp">WA</a>
+      <a href="#" class="social-btn" title="Facebook">FB</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function enviarForm(e) {
+    e.preventDefault();
+    document.getElementById('form-contato').style.display = 'none';
+    document.getElementById('form-success').style.display = 'block';
+  }
+
+  // Nav scroll effect
+  window.addEventListener('scroll', () => {
+    const nav = document.querySelector('nav');
+    nav.style.background = window.scrollY > 50
+      ? 'rgba(8,29,20,0.98)'
+      : 'rgba(8,29,20,0.85)';
+  });
+</script>
+</body>
+</html>
