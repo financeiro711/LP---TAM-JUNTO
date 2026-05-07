@@ -65,6 +65,17 @@
     transition: color .2s;
   }
   .nav-links a:hover { color: var(--laranja); }
+  .nav-area-interna {
+    border: 1.5px solid rgba(255,255,255,0.25);
+    color: rgba(255,255,255,0.7) !important;
+    padding: 9px 18px;
+    border-radius: 4px;
+    font-size: .8rem !important;
+    transition: border-color .2s, color .2s !important;
+    cursor: pointer;
+    background: transparent;
+  }
+  .nav-area-interna:hover { border-color: var(--laranja) !important; color: var(--branco) !important; }
   .nav-cta {
     background: var(--laranja);
     color: var(--branco) !important;
@@ -633,6 +644,32 @@
     color: rgba(255,255,255,0.2);
   }
   .divider { height: 4px; background: linear-gradient(90deg, var(--verde), var(--laranja), var(--verde)); }
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    z-index: 999;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(4px);
+  }
+  .modal-overlay.ativo { display: flex; }
+  .modal-box {
+    background: var(--verde-escuro);
+    border: 1px solid rgba(240,125,0,0.3);
+    border-radius: 16px;
+    padding: 48px 40px;
+    text-align: center;
+    max-width: 420px;
+    width: 90%;
+    animation: fadeUp .3s ease both;
+  }
+  .modal-icon { font-size: 3rem; margin-bottom: 16px; }
+  .modal-box h3 { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--laranja); margin-bottom: 12px; letter-spacing: 1px; }
+  .modal-box p { font-size: .95rem; opacity: .7; line-height: 1.6; margin-bottom: 28px; }
+  .modal-close { background: var(--laranja); color: var(--branco); border: none; padding: 12px 32px; border-radius: 6px; font-family: 'Barlow Condensed', sans-serif; font-size: .9rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: background .2s; }
+  .modal-close:hover { background: #d96e00; }
 
   @media (max-width: 900px) {
     nav { padding: 16px 24px; }
@@ -656,6 +693,16 @@
 </head>
 <body>
 
+<!-- MODAL MANUTENÇÃO -->
+<div class="modal-overlay" id="modal-manutencao" onclick="if(event.target===this)fecharModal()">
+  <div class="modal-box">
+    <div class="modal-icon">🔧</div>
+    <h3>Em Manutenção</h3>
+    <p>Nossa área interna está passando por melhorias. Em breve estará disponível com todas as funcionalidades.</p>
+    <button class="modal-close" onclick="fecharModal()">Entendido</button>
+  </div>
+</div>
+
 <!-- NAV -->
 <nav>
   <div class="nav-logo">
@@ -668,6 +715,7 @@
     <li><a href="#diferenciais">Experiências</a></li>
     <li><a href="#depoimentos">Depoimentos</a></li>
     <li><a href="#contato" class="nav-cta">Fale Conosco</a></li>
+    <li><a href="#" class="nav-area-interna" onclick="abrirModal();return false;">Área Interna</a></li>
   </ul>
 </nav>
 
@@ -924,30 +972,47 @@
 </footer>
 
 <script>
+  let ultimoEnvio = 0;
   async function enviarForm(e) {
     e.preventDefault();
+
+    // Anti-spam: bloqueia envios em menos de 30s
+    const agora = Date.now();
+    if (agora - ultimoEnvio < 30000) return;
+
+    const nome     = document.getElementById('campo-nome').value.trim();
+    const email    = document.getElementById('campo-email').value.trim();
+    const telefone = document.getElementById('campo-telefone').value.trim();
+    const mensagem = document.getElementById('campo-mensagem').value.trim();
+
+    // Validação básica
+    if (nome.length < 2) return;
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return;
+
+    // Sanitiza: remove tags HTML dos campos de texto
+    const limpar = v => v.replace(/<[^>]*>/g, '').slice(0, 500);
+
     const btn = document.querySelector('.btn-submit');
     btn.disabled = true;
     btn.textContent = 'Enviando...';
-
-    const payload = {
-      nome:      document.getElementById('campo-nome').value,
-      email:     document.getElementById('campo-email').value,
-      telefone:  document.getElementById('campo-telefone').value,
-      mensagem:  document.getElementById('campo-mensagem').value,
-    };
+    ultimoEnvio = agora;
 
     try {
       await fetch('https://seubone-n8n.0ecudi.easypanel.host/webhook/2ab998ab-f25d-4fe5-bc27-5e3dd0bee173', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({ nome: limpar(nome), email: limpar(email), telefone: limpar(telefone), mensagem: limpar(mensagem) }),
       });
     } catch (_) {}
 
     document.getElementById('form-contato').style.display = 'none';
     document.getElementById('form-success').style.display = 'block';
   }
+
+  // Modal área interna
+  function abrirModal() { document.getElementById('modal-manutencao').classList.add('ativo'); }
+  function fecharModal() { document.getElementById('modal-manutencao').classList.remove('ativo'); }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') fecharModal(); });
 
   // Phone mask
   function mascaraTel(el) {
